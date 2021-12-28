@@ -17,6 +17,46 @@ msgstr ""
 msgid "AdGuard (Standard)"
 msgstr ""
 
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.au.doh.lua:3
+msgid "AhaDNS.com - Australia (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.in.doh.lua:3
+msgid "AhaDNS.com - India (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.it.doh.lua:3
+msgid "AhaDNS.com - Italy (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.nl.doh.lua:3
+msgid "AhaDNS.com - Netherlands (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.no.doh.lua:3
+msgid "AhaDNS.com - Norway (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.pl.doh.lua:3
+msgid "AhaDNS.com - Poland (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.es.doh.lua:3
+msgid "AhaDNS.com - Spain (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.chi.doh.lua:3
+msgid "AhaDNS.com - US/Chicago (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.la.doh.lua:3
+msgid "AhaDNS.com - US/Los Angeles (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.ahadns.ny.doh.lua:3
+msgid "AhaDNS.com - US/New York (Block Malware + Ads)"
+msgstr ""
+
 #: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/com.alidns.dns.lua:3
 msgid "AliDNS"
 msgstr ""
@@ -59,6 +99,26 @@ msgstr ""
 
 #: applications/luci-app-https-dns-proxy/luasrc/model/cbi/https-dns-proxy.lua:122
 msgid "Configuration"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/com.controld.freedns.malware-ads-social.lua:3
+msgid "ControlD (Block Malware + Ads + Social)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/com.controld.freedns.malware-ads.lua:3
+msgid "ControlD (Block Malware + Ads)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/com.controld.freedns.malware.lua:3
+msgid "ControlD (Block Malware)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/com.controld.freedns.family.lua:3
+msgid "ControlD (Family)"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/com.controld.freedns.unfiltered.lua:3
+msgid "ControlD (Unfiltered)"
 msgstr ""
 
 #: applications/luci-app-https-dns-proxy/luasrc/controller/https-dns-proxy.lua:4
@@ -123,6 +183,14 @@ msgstr ""
 
 #: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/google.dns.lua:3
 msgid "Google"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/root/usr/share/rpcd/acl.d/luci-app-https-dns-proxy.json:3
+msgid "Grant UCI and file access for luci-app-https-dns-proxy"
+msgstr ""
+
+#: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.he.ordns.lua:3
+msgid "Hurricane Electric"
 msgstr ""
 
 #: applications/luci-app-https-dns-proxy/luasrc/https-dns-proxy/providers/net.idnet.doh.lua:3
