@@ -2524,6 +2524,8 @@
             
                 <li data-name="LuCI.network.WifiNetwork#getVlanIfnames"><a href="LuCI.network.WifiNetwork.html#getVlanIfnames">getVlanIfnames</a></li>
             
+                <li data-name="LuCI.network.WifiNetwork#getVlans"><a href="LuCI.network.WifiNetwork.html#getVlans">getVlans</a></li>
+            
                 <li data-name="LuCI.network.WifiNetwork#getWifiDevice"><a href="LuCI.network.WifiNetwork.html#getWifiDevice">getWifiDevice</a></li>
             
                 <li data-name="LuCI.network.WifiNetwork#getWifiDeviceName"><a href="LuCI.network.WifiNetwork.html#getWifiDeviceName">getWifiDeviceName</a></li>
@@ -2535,6 +2537,40 @@
                 <li data-name="LuCI.network.WifiNetwork#isUp"><a href="LuCI.network.WifiNetwork.html#isUp">isUp</a></li>
             
                 <li data-name="LuCI.network.WifiNetwork#set"><a href="LuCI.network.WifiNetwork.html#set">set</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="LuCI.network.WifiVlan">
+            <span class="title">
+                <a href="LuCI.network.WifiVlan.html">LuCI.network.WifiVlan</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="LuCI.network.WifiVlan#getI18n"><a href="LuCI.network.WifiVlan.html#getI18n">getI18n</a></li>
+            
+                <li data-name="LuCI.network.WifiVlan#getIfname"><a href="LuCI.network.WifiVlan.html#getIfname">getIfname</a></li>
+            
+                <li data-name="LuCI.network.WifiVlan#getName"><a href="LuCI.network.WifiVlan.html#getName">getName</a></li>
+            
+                <li data-name="LuCI.network.WifiVlan#getNetwork"><a href="LuCI.network.WifiVlan.html#getNetwork">getNetwork</a></li>
+            
+                <li data-name="LuCI.network.WifiVlan#getVlanId"><a href="LuCI.network.WifiVlan.html#getVlanId">getVlanId</a></li>
             
             </ul>
             <ul class="events itemMembers">
@@ -2824,6 +2860,8 @@
             
                 <li data-name="LuCI.uci#get"><a href="LuCI.uci.html#get">get</a></li>
             
+                <li data-name="LuCI.uci#get_bool"><a href="LuCI.uci.html#get_bool">get_bool</a></li>
+            
                 <li data-name="LuCI.uci#get_first"><a href="LuCI.uci.html#get_first">get_first</a></li>
             
                 <li data-name="LuCI.uci#load"><a href="LuCI.uci.html#load">load</a></li>
@@ -2877,6 +2915,8 @@
             <span class="subtitle">Methods</span>
             
                 <li data-name="LuCI.ui#addNotification"><a href="LuCI.ui.html#addNotification">addNotification</a></li>
+            
+                <li data-name="LuCI.ui#addTimeLimitedNotification"><a href="LuCI.ui.html#addTimeLimitedNotification">addTimeLimitedNotification</a></li>
             
                 <li data-name="LuCI.ui#addValidator"><a href="LuCI.ui.html#addValidator">addValidator</a></li>
             
@@ -7492,11 +7532,6 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 	 * to the `dom.content()` function - refer to its documentation for
 	 * applicable values.
 	 *	 
-	 * @param {int} [timeout]
-	 * A millisecond value after which the notification will disappear
-	 * automatically. If omitted, the notification will remain until it receives
-	 * the click event.
-	 *
 	 * @param {...string} [classes]
 	 * A number of extra CSS class names which are set on the notification
 	 * banner element.
@@ -7504,7 +7539,7 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 	 * @returns {Node}
 	 * Returns a DOM Node representing the notification banner element.
 	 */
-	addNotification(title, children, timeout, ...classes) {
+	addNotification(title, children, ...classes) {
 		const mc = document.querySelector('#maincontent') ?? document.body;
 		const msg = E('div', {
 			'class': 'alert-message fade-in',
@@ -7521,7 +7556,7 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 					'class': 'btn',
 					'style': 'margin-left:auto; margin-top:auto',
 					'click': function(ev) {
-						fadeOutNotification(ev.target);
+						dom.parent(ev.target, '.alert-message').classList.add('fade-out');
 					},
 
 				}, [ _('Dismiss') ])
@@ -7537,25 +7572,62 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 
 		mc.insertBefore(msg, mc.firstElementChild);
 
+		return msg;
+	},
+
+	/**
+	 * Add a time-limited notification banner at the top of the current view.
+	 *
+	 * A notification banner is an alert message usually displayed at the
+	 * top of the current view, spanning the entire available width.
+	 * Notification banners will stay in place until dismissed by the user, or
+	 * it has expired.
+	 * Multiple banners may be shown at the same time.
+	 *
+	 * Additional CSS class names may be passed to influence the appearance of
+	 * the banner. Valid values for the classes depend on the underlying theme.
+	 *
+	 * @see LuCI.dom.content
+	 *
+	 * @param {string} [title]
+	 * The title of the notification banner. If `null`, no title element
+	 * will be rendered.
+	 *
+	 * @param {*} children
+	 * The contents to add to the notification banner. This should be a DOM
+	 * node or a document fragment in most cases. The value is passed as-is
+	 * to the `dom.content()` function - refer to its documentation for
+	 * applicable values.
+	 * 
+	 * @param {int} [timeout]
+	 * A millisecond value after which the notification will disappear
+	 * automatically. If omitted, the notification will remain until it receives
+	 * the click event.
+	 *
+	 * @param {...string} [classes]
+	 * A number of extra CSS class names which are set on the notification
+	 * banner element.
+	 *
+	 * @returns {Node}
+	 * Returns a DOM Node representing the notification banner element.
+	 */
+	addTimeLimitedNotification(title, children, timeout, ...classes) {
+		const msg = this.addNotification(title, children, ...classes);
+
 		function fadeOutNotification(element) {
-			const notification = dom.parent(element, '.alert-message');
-			if (notification) {
-				notification.classList.add('fade-out');
-				notification.classList.remove('fade-in');
+			if (element) {
+				element.classList.add('fade-out');
+				element.classList.remove('fade-in');
 				setTimeout(() => {
-					if (notification.parentNode) {
-						notification.parentNode.removeChild(notification);
+					if (element.parentNode) {
+						element.parentNode.removeChild(element);
 					}
 				});
 			}
 		}
 
 		if (typeof timeout === 'number' &amp;&amp; timeout > 0) {
-			setTimeout(() => {
-				if (msg &amp;&amp; msg.parentNode) {
-					fadeOutNotification(msg);
-				}
-			}, timeout);
+			setTimeout(() => fadeOutNotification(msg), timeout);
 		}
 
 		return msg;
@@ -8283,7 +8355,7 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 					E('div', { 'class': 'uci-change-legend-label' }, [
 						E('var', {}, E('del', '&amp;#160;')), ' ', _('Option removed') ])]),
 				E('br'), list,
-				E('div', { 'class': 'right' }, [ //button-row?
+				E('div', { 'class': 'button-row' }, [
 					E('button', {
 						'class': 'btn cbi-button',
 						'click': UI.prototype.hideModal
@@ -8399,7 +8471,7 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 						UI.prototype.changes.displayStatus('warning', [
 							E('h4', _('Configuration changes have been rolled back!')),
 							E('p', _('The device could not be reached within %d seconds after applying the pending changes, which caused the configuration to be rolled back for safety reasons. If you believe that the configuration changes are correct nonetheless, perform an unchecked configuration apply. Alternatively, you can dismiss this warning and edit changes before attempting to apply again, or revert all pending changes to keep the currently working configuration state.').format(L.env.apply_rollback)),
-							E('div', { 'class': 'right' }, [
+							E('div', { 'class': 'button-row' }, [
 								E('button', {
 									'class': 'btn',
 									'click': L.bind(UI.prototype.changes.displayStatus, UI.prototype.changes, false)
@@ -8543,7 +8615,7 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 							E('button', {
 								'class': 'btn cbi-button-action important',
 								'click': resolveFn.bind(null, true)
-							}, [ _('Apply, reverting in case of connectivity loss') ]), ' ',
+							}, [ _('Apply checked') ]), ' ',
 							E('button', {
 								'class': 'btn cbi-button-negative important',
 								'click': resolveFn.bind(null, false)
@@ -8801,7 +8873,7 @@ return UI;
         
 
         <footer>
-            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Sun Feb 09 2025 19:26:13 GMT+0000 (Coordinated Universal Time)
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Mon Mar 17 2025 20:14:37 GMT+0000 (Coordinated Universal Time)
         </footer>
     </div>
 </div>
