@@ -11,7 +11,7 @@ var pkg = {
 		return "pbr";
 	},
 	get LuciCompat() {
-		return 20;
+		return 21;
 	},
 	get ReadmeCompat() {
 		return "1.2.1";
@@ -30,7 +30,7 @@ var pkg = {
 			pkg.Name +
 			"/" +
 			(pkg.ReadmeCompat ? pkg.ReadmeCompat + "/" : "") +
-			"#Donate"
+			"#donate"
 		);
 	},
 	isVersionMismatch: function (luci, pkg, rpcd) {
@@ -93,10 +93,10 @@ var getPlatformSupport = rpc.declare({
 	params: ["name"],
 });
 
-var getUbusInfo = rpc.declare({
-	object: "luci." + pkg.Name,
-	method: "getUbusInfo",
-	params: ["name"],
+var getServiceInfo = rpc.declare({
+	object: "service",
+	method: "list",
+	params: ["name", "verbose"],
 });
 
 var _setInitAction = rpc.declare({
@@ -175,7 +175,7 @@ var status = baseclass.extend({
 	render: function () {
 		return Promise.all([
 			L.resolveDefault(getInitStatus(pkg.Name), {}),
-			L.resolveDefault(getUbusInfo(pkg.Name), {}),
+			L.resolveDefault(getServiceInfo(pkg.Name, true), {}),
 		]).then(function ([initStatus, ubusInfo]) {
 			var reply = {
 				status: initStatus?.[pkg.Name] || {
@@ -271,7 +271,7 @@ var status = baseclass.extend({
 						'#AWordAboutDefaultRouting" target="_blank">',
 						"</a>"
 					) +
-					"<br />" +
+					"<br />" + "<br />" +
 					_("Please %sdonate%s to support development of this project.").format(
 						"<a href='" + pkg.DonateURL + "' target='_blank'>",
 						"</a>"
@@ -725,5 +725,4 @@ return L.Class.extend({
 	getInitStatus: getInitStatus,
 	getInterfaces: getInterfaces,
 	getPlatformSupport: getPlatformSupport,
-	getUbusInfo: getUbusInfo,
 });
