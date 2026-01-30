@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: HiddenValue</title>
+    <title>Class: Button</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -3967,7 +3967,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="LuCI.form.HiddenValue.html">Class: HiddenValue</h1>
+        <h1 class="page-title" data-filename="LuCI.form.Button.html">Class: Button</h1>
         
 
 
@@ -3978,16 +3978,11 @@
     <h2>
         <span class="ancestors"><a href="LuCI.html">LuCI</a><a href="LuCI.form.html">.form</a>.</span>
     
-    HiddenValue
+    Button
     </h2>
     
-        <div class="class-description"><p>The <code>HiddenValue</code> element wraps a <a href="LuCI.ui.Hiddenfield.html"><code>LuCI.ui.Hiddenfield</code></a> widget.</p>
-<p>Hidden value widgets used to be necessary in legacy code which actually
-submitted the underlying HTML form the server. With client side handling of
-forms, there are more efficient ways to store hidden state data.</p>
-<p>Since this widget has no visible content, the title and description values
-of this form element should be set to <code>null</code> as well to avoid a broken or
-distorted form layout when rendering the option element.</p></div>
+        <div class="class-description"><p>The <code>Button</code> element wraps a <a href="LuCI.ui.Hiddenfield.html"><code>LuCI.ui.Hiddenfield</code></a> widget and
+renders the underlying UCI option or default value as readonly text.</p></div>
     
 </header>  
 
@@ -3999,14 +3994,14 @@ distorted form layout when rendering the option element.</p></div>
         
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="HiddenValue">
+        <h4 class="name" id="Button">
             
-            new LuCI.form.HiddenValue<span class="signature">(form, section, option, <span class="optional">title</span>, <span class="optional">description</span>)</span>
+            new LuCI.form.Button<span class="signature">(form, section, option, <span class="optional">title</span>, <span class="optional">description</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="form.js.html">form.js</a>, <a href="form.js.html#line4934">line 4934</a>
+            <a href="form.js.html">form.js</a>, <a href="form.js.html#line4818">line 4818</a>
         </div>
         
     </div>
@@ -4260,6 +4255,170 @@ option to the section.</p></td>
         <h3 class="subsection-title">Members</h3>
         
         <dl>
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="inputstyle">inputstyle<span class="type-signature type string">string</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Override the button style class.</p>
+<p>By setting this property, a specific <code>cbi-button-*</code> CSS class can be
+selected to influence the style of the resulting button.</p>
+<p>Suitable values which are implemented by most themes are <code>positive</code>,
+<code>negative</code> and <code>primary</code>.</p>
+<p>The default of <code>null</code> means a neutral button styling is used.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>null</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="inputtitle">inputtitle<span class="type-signature type string">string</span> <span class="type-signature type function">function</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Override the rendered button caption.</p>
+<p>By default, the option title - which is passed as the fourth argument to the
+constructor - is used as a caption for the button element. When setting
+this property to a string, it is used as a <code>String.format()</code> pattern with
+the underlying UCI section name passed as the first format argument. When
+set to a function, it is invoked passing the section ID as the sole argument,
+and the resulting return value is converted to a string before being
+used as a button caption.</p>
+<p>The default of <code>null</code> means the option title is used as caption.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>null</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="onclick">onclick<span class="type-signature type function">function</span> </h4>
+    </div>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Override the button click action.</p>
+<p>By default, the underlying UCI option (or default property) value is
+copied into a hidden field tied to the button element and the save
+action is triggered on the parent form element.</p>
+<p>When this property is set to a function, it is invoked instead of
+performing the default actions. The handler function will receive the
+DOM click element as the first and the underlying configuration section ID
+as the second argument.</p>
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>null</li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
             
 <dt>
     <div class="nameContainer">
