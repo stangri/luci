@@ -685,8 +685,6 @@ var status = baseclass.extend({
 							btn_enable,
 							btn_disable,
 						];
-						if (typeof btn_sync_cron !== "undefined")
-							allButtons.push(btn_sync_cron);
 						allButtons.forEach(function (b) {
 							b.disabled = true;
 						});
